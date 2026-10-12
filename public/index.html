@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 狼人杀 · 主持人控制台</title>
+<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/werewolf.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐺</text></svg>" />
+</head>
+<body>
+<div id="app">
+  <!-- ==================== 左侧：频道列表 ==================== -->
+  <aside class="sidebar">
+    <div class="me">
+      <div class="avatar">🐺</div>
+      <div class="me-info">
+        <div class="me-name">AI 狼人杀</div>
+        <div class="me-sub" id="view-sub">主持人视角 · 可见全部频道</div>
+      </div>
+      <button class="icon-btn" id="btn-view" title="切换主持人 / 观众视角">👁</button>
+    </div>
+
+    <div class="side-head"><span>频道</span><span class="phase-chip" id="phase-chip">未开始</span></div>
+    <div class="room-list" id="channel-list"></div>
+
+    <div class="side-foot">
+      <button class="soft-btn block" id="btn-agents"><span class="ico">🧩</span> AI 成员库</button>
+      <button class="soft-btn block" id="btn-settings" style="margin-top:8px"><span class="ico">⚙</span> 对局设置</button>
+    </div>
+  </aside>
+
+  <!-- ==================== 中间：消息 + 控制栏 ==================== -->
+  <main class="chat">
+    <header class="chat-head">
+      <div class="head-left">
+        <div class="room-title" id="channel-title">公共频道</div>
+        <div class="room-sub" id="channel-sub"></div>
+      </div>
+      <div class="head-right">
+        <span class="running-chip" id="running-chip" hidden><i></i><span id="running-text">AI 正在发言…</span></span>
+        <button class="soft-btn" id="btn-stop" hidden><span class="ico">⏹</span>停止</button>
+        <button class="soft-btn" id="btn-isolation" title="对全部座位跑一遍频道权限校验"><span class="ico">🔎</span>隔离自检</button>
+        <button class="soft-btn" id="btn-newgame"><span class="ico">🔄</span>开新一局</button>
+      </div>
+    </header>
+
+    <!-- 代理挂掉时的醒目提示（否则每一条 AI 消息都是一片空白/红字，很难一眼看出原因） -->
+    <div class="warn-banner" id="warn-banner" hidden></div>
+
+    <!-- 主持人控制栏：按钮随阶段自动切换 -->
+    <div class="control-bar" id="control-bar"></div>
+
+    <!-- 发言队列：谁说过、现在轮到谁 -->
+    <div class="queue-strip" id="queue-strip" hidden></div>
+    <!-- 警上候选人（可在此处理退水） -->
+    <div class="queue-strip" id="candidate-strip" hidden></div>
+
+    <div class="messages" id="messages"></div>
+
+    <div class="composer">
+      <div class="composer-card">
+        <textarea id="input" rows="1" placeholder="以主持人身份在当前频道发言（例如：天亮了 / 3号是狼人 / 请开始投票）"></textarea>
+        <div class="composer-row">
+          <span class="hint">主持人发言会进入当前频道，所有有权看到该频道的 AI 都会读到</span>
+          <div class="composer-btns">
+            <button class="send-btn" id="btn-send">发送</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== 右侧：座位面板 ==================== -->
+  <aside class="members-panel">
+    <div class="side-head"><span>座位 / 玩家</span><span class="tiny" id="alive-count"></span></div>
+    <div class="panel-list" id="seat-list"></div>
+    <div class="panel-tip">下拉框可直接换这个座位背后的 AI 模型 —— <b>频道和历史不会重建</b>，新模型接着往下玩。</div>
+  </aside>
+</div>
+
+<div class="modal-root" id="modal-root" hidden></div>
+<div class="toast-root" id="toast-root"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

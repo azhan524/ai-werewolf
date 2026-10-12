@@ -1,0 +1,5 @@
+# 统一换行符：源码用 LF，Windows 脚本/源码保持 CRLF，避免跨平台 diff 抖动
+* text=auto
+*.ps1 text eol=crlf
+*.cs  text eol=crlf
+*.cmd text eol=crlf

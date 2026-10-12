@@ -1,0 +1,20 @@
+# 运行期数据：里面有你的 API Key，绝不入库（程序自己会创建）
+data/
+*.log
+
+# 依赖与第三方二进制（构建/安装时自动获取）
+node_modules/
+vendor/
+
+# 编译产物（33 MB 的 exe 不适合塞进仓库）
+dist/
+build/
+
+# 开发期截图（整屏模糊，README 未引用）
+screenshots/
+
+# 编辑器 / 系统杂项
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
